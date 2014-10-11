@@ -10,7 +10,24 @@ Jobs="\j"
 export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
 
 # enable color support (dependency 'coreutils')
-test -r ./dircolors && eval "$(dircolors -b ./dircolors)" || eval "$(dircolors -b)"
+### Enable colors in terminal
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+### colorize dir listing
+use_color=true
+if ${use_color} ; then
+  # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+  if type -P dircolors >/dev/null ; then
+    if [ -f ~/.dir_colors ] ; then
+      eval $(dircolors -b ~/.dir_colors)
+    elif [ -f /etc/DIR_COLORS ] ; then
+      eval $(dircolors -b /etc/DIR_COLORS)
+    else
+      eval $(dircolors -b $BASEDIR/dircolors)
+    fi
+  fi
+fi
 
 DEFAULT_PROMPT="$Cyan\u:$BYellow$PathShort$Color_Off"
 export PS1='$(git branch &>/dev/null;\
