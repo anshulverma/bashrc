@@ -1,3 +1,5 @@
+#!/bin/bash
+
 Time12h="\T"
 Time12a="\@"
 PathShort="\w"

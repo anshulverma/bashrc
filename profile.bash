@@ -1,8 +1,10 @@
+#!/bin/bash
+
 # call init before anything to get ready for setup
 source $BASEDIR/init.bash
 
 # set contants
-source $BASEDIR/constants
+source $BASEDIR/constants.bash
 
 # append PATH
 export PATH="$PATH:~/bin/scripts"                           # add custom scripts
@@ -20,16 +22,16 @@ MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # setup prompt
-source $BASEDIR/prompt
+source $BASEDIR/prompt.bash
 
 # install custom aliases
-source $BASEDIR/alias
+source $BASEDIR/alias.bash
 
 # custom configurations for git
-source $BASEDIR/gitrc
+source $BASEDIR/gitrc.bash
 
 # set up node
-source $BASEDIR/node_bash
+source $BASEDIR/node.bash
 
 # set up big data
-source $BASEDIR/big_data
+source $BASEDIR/big_data.bash

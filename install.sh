@@ -18,7 +18,7 @@ cat <<EOF>> ~/.bash_profile
 #!/bin/bash
 
 BASEDIR=$BASEDIR
-source $BASEDIR/bash_profile
+source $BASEDIR/profile.bash
 
 EOF
 echo "created new $HOME/.bash_profile"

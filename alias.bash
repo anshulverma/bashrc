@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias timestamp='date +%s'
 alias estart='/usr/local/bin/elasticsearch -D es.config=/usr/local/Cellar/elasticsearch/0.19.4/config/elasticsearch.yml -p $ESDIR/$(timestamp).pid'
 alias estop='for f in `ls $ESDIR/*.pid`; do kill -TERM `cat $f`; rm -rf $f; done;'

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # environment variable customizations
 export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
