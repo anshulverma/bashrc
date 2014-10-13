@@ -26,4 +26,6 @@ alias l='ls -CF'
 
 alias hg-rsync='hg qref && hg qpop && rsync -azvP ~/recs/r3/.hg/patches/ ubee:recs/r3/.hg/patches/ && hg qpush'
 
-alias ..='cd ..'
+alias .='pwd'
+alias ..='cd .. && .'
+alias ...='cd ../.. && .'
