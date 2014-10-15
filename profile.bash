@@ -35,3 +35,6 @@ source $BASEDIR/node.bash
 
 # set up big data
 source $BASEDIR/big_data.bash
+
+# set up ssh
+source $BASEDIR/ssh.bash
