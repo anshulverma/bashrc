@@ -18,6 +18,7 @@ cat <<EOF>> ~/.bash_profile
 #!/bin/bash
 
 BASEDIR=$BASEDIR
+export BASH_RC_BASEDIR=$BASEDIR
 source $BASEDIR/profile.bash
 
 EOF

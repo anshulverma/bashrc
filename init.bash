@@ -2,12 +2,12 @@
 
 ####################-----COLORS-----####################
 # Reset
-export ResetColor="\033[0m"       # Text Reset
+ResetColor="\033[0m"       # Text Reset
 
 # Regular Colors
 Black="\[\033[0;30m\]"        # Black
 Red="\[\033[0;31m\]"          # Red
-export Green="\033[0;32m"        # Green
+Green="\033[0;32m"        # Green
 Yellow="\[\033[0;33m\]"       # Yellow
 Blue="\[\033[0;34m\]"         # Blue
 Purple="\[\033[0;35m\]"       # Purple
@@ -22,7 +22,7 @@ BYellow="\[\033[1;33m\]"      # Yellow
 BBlue="\[\033[1;34m\]"        # Blue
 BPurple="\[\033[1;35m\]"      # Purple
 BCyan="\[\033[1;36m\]"        # Cyan
-export BWhite="\033[1;37m"       # White
+BWhite="\033[1;37m"       # White
 
 # Underline
 UBlack="\[\033[4;30m\]"       # Black
@@ -80,5 +80,3 @@ function cprint() {
   color=$2
   echo "${color}${str}${ResetColor}"
 }
-
-export -f cprint

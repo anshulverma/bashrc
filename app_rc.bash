@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function loadApplication() {
+  source $BASH_RC_BASEDIR/init.bash
   file=$1
   appName=`basename $file | sed 's/.bash$//'`
   echo -ne "setting up $(cprint $appName $BWhite)...."
