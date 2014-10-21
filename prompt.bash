@@ -31,7 +31,7 @@ if ${use_color} ; then
   fi
 fi
 
-DEFAULT_PROMPT="$Cyan\u:$BYellow$PathShort$Color_Off"
+DEFAULT_PROMPT="$Cyan\u:$BYellow$PathShort$ResetColor"
 export PS1='$(git branch &>/dev/null;\
     if [ $? -eq 0 ]; then \
       echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
