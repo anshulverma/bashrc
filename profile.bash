@@ -27,15 +27,6 @@ source $BASEDIR/prompt.bash
 # install custom aliases
 source $BASEDIR/alias.bash
 
-# custom configurations for git
-source $BASEDIR/gitrc.bash
-
-# set up node
-source $BASEDIR/node.bash
-
-# set up big data
-source $BASEDIR/big_data.bash
-
 # set up ssh
 source $BASEDIR/ssh.bash
 
