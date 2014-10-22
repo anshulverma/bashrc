@@ -5,7 +5,7 @@ function currentTime() {
   echo $(($(date +%s%N)/1000000))
 }
 
-# load a script and measure time takenf
+# load a script and measure time taken
 function loadScript() {
   source $BASH_RC_BASEDIR/colors.bash
   file=$1
