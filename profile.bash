@@ -6,7 +6,7 @@ source $BASEDIR/init.bash
 # call init before anything to get ready for setup
 source $BASEDIR/util.bash
 
-startTime=$(currentTime)
+overallStartTime=$(($(date +%s%N)/1000000))
 
 # set constants
 source $BASEDIR/constants.bash
@@ -42,5 +42,6 @@ loadScript $BASEDIR/alias.bash
 source $BASEDIR/app_rc.bash
 
 endTime=$(currentTime)
+
 echo ""
-echo "Total time taken: $(expr $endTime - $startTime) msec"
+echo "Total time taken: $(expr $endTime - $overallStartTime) msec"
