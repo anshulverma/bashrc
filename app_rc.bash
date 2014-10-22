@@ -5,9 +5,10 @@ function loadApplication() {
   file=$1
   appName=`basename $file | sed 's/.bash$//'`
   echo -ne "setting up $(cprint $appName $BWhite)...."
-  startTime=`date +%s`
+  startTime=`date +%s%2N`
   source $file
-  timeTaken=$(expr `date +%s` - $startTime)
+  sleep 1
+  timeTaken=$(expr `date +%s%2N` - $startTime)
   echo -e "$(cprint 'done' $Green) [${timeTaken} msec]"
 }
 
