@@ -27,8 +27,5 @@ source $BASEDIR/prompt.bash
 # install custom aliases
 source $BASEDIR/alias.bash
 
-# set up ssh
-source $BASEDIR/ssh.bash
-
 # set up all applications run configurations
 source $BASEDIR/app_rc.bash

@@ -15,12 +15,9 @@ function all_keys() {
 }
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-  echo "Starting ssh-agent..."
   eval `ssh-agent -s`
 
   for key in $(all_keys); do
     ssh-add $key
   done
-else
-  echo "SSH agent already running"
 fi
