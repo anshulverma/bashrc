@@ -26,7 +26,7 @@ if ${use_color} ; then
     elif [ -f /etc/DIR_COLORS ] ; then
       eval $(dircolors -b /etc/DIR_COLORS)
     else
-      eval $(dircolors -b $BASEDIR/dircolors)
+      eval $(dircolors -b $BASH_RC_BASEDIR/dircolors)
     fi
   fi
 fi
