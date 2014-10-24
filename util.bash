@@ -15,7 +15,7 @@ function loadScript() {
   # extract the name of the script
   file=$1
   appName=`basename $file | sed 's/.bash$//'`
-  echo -ne `pad -c "." -l 40 $(cprint $appName $BWhite)`
+  echo -ne "$(cprint $appName $BWhite)....."
 
   EXIT_CODE=0
   source $file
@@ -35,10 +35,9 @@ function loadScript() {
        color=$Red
   esac
 
-  status=`pad -c " " -l 31  "$(cprint $code $color)"`
-  timeTaken=`pad -c " " -l 4 "$(expr $(currentTime) - $startTime)"`
-  echo -e "$status[${timeTaken} msec]"
+  status="$(cprint $code $color)"
+  timeTaken=$(expr $(currentTime) - $startTime)
+  echo -e "$status [${timeTaken} msec]"
 }
 
 export -f currentTime
-export -f loadScript
