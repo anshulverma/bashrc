@@ -18,7 +18,7 @@ function loadScript() {
   echo -ne `pad -c "." -l 40 $(cprint $appName $BWhite)`
 
   EXIT_CODE=0
-  sh $file
+  source $file
 
   # find out the status code from exit code
   case $EXIT_CODE in
