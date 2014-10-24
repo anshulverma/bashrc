@@ -19,7 +19,7 @@ cat <<EOF>> ~/.bash_profile
 
 BASEDIR=$BASEDIR
 export BASH_RC_BASEDIR=$BASEDIR
-source $BASEDIR/profile.bash
+source $BASEDIR/lib/profile.bash
 
 EOF
 echo "created new $HOME/.bash_profile"

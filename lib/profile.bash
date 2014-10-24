@@ -1,18 +1,20 @@
 #!/bin/bash
 
-# call init before anything to get ready for setup
-source $BASEDIR/init.bash
+LIB_DIR=$BASEDIR/lib
 
 # call init before anything to get ready for setup
-source $BASEDIR/util.bash
+source $LIB_DIR/init.bash
+
+# call init before anything to get ready for setup
+source $LIB_DIR/util.bash
 
 overallStartTime=$(($(date +%s%N)/1000000))
 
 # set constants
-source $BASEDIR/constants.bash
+source $LIB_DIR/constants.bash
 
 # initialize colors
-source $BASEDIR/colors.bash
+source $LIB_DIR/colors.bash
 
 # append MANPATH
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
@@ -27,19 +29,19 @@ MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
   echo ""
 
 # setup homebrew
-loadScript $BASEDIR/brew.bash
+loadScript $LIB_DIR/brew.bash
 
 # setup prompt
-loadScript $BASEDIR/git.bash
+loadScript $LIB_DIR/git.bash
 
 # setup prompt
-loadScript $BASEDIR/prompt.bash
+loadScript $LIB_DIR/prompt.bash
 
 # install custom aliases
-loadScript $BASEDIR/alias.bash
+loadScript $LIB_DIR/alias.bash
 
 # set up all applications run configurations
-source $BASEDIR/app_rc.bash
+source $LIB_DIR/app_rc.bash
 
 endTime=$(currentTime)
 
