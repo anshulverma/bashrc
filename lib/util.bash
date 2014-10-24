@@ -19,12 +19,6 @@ function loadScript() {
     0) code="DONE";
        color=$Green;
        ;;
-    1) code="NOT_INSTALLED";
-       color=$Yellow;
-       ;;
-    2) code="NOT_FOUND";
-       color=$Yellow;
-       ;;
     *) code="ERROR";
        color=$Red
   esac
@@ -33,7 +27,7 @@ function loadScript() {
   appName=$(cprint "`basename $file | sed 's/.bash$//'`" $BWhite)
   status=$(cprint $code $color)
   timeTaken=$(expr $(currentTime) - $startTime)
-  echo -e "$appName....$status [${timeTaken} msec]"
+  echo -e "....................\r$appName\r\033[20C$status [${timeTaken} msec]"
 }
 
 export -f currentTime
