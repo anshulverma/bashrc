@@ -9,14 +9,8 @@ function currentTime() {
 function loadScript() {
   startTime=$(currentTime)
 
-  # need colors to display pretty output
-  source $BASH_RC_BASEDIR/colors.bash
-
-  # extract the name of the script
+  # execute script
   file=$1
-  appName=`basename $file | sed 's/.bash$//'`
-  echo -ne "$(cprint $appName $BWhite)....."
-
   EXIT_CODE=0
   source $file
 
@@ -35,9 +29,11 @@ function loadScript() {
        color=$Red
   esac
 
-  status="$(cprint $code $color)"
+  # print status
+  appName=$(cprint "`basename $file | sed 's/.bash$//'`" $BWhite)
+  status=$(cprint $code $color)
   timeTaken=$(expr $(currentTime) - $startTime)
-  echo -e "$status [${timeTaken} msec]"
+  echo -e "$appName....$status [${timeTaken} msec]"
 }
 
 export -f currentTime
