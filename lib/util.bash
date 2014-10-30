@@ -30,4 +30,20 @@ function loadScript() {
   echo -e "....................\r$appName\r\033[20C$status [${timeTaken} msec]"
 }
 
-export -f currentTime
+# get current timestamp
+timestamp() {
+  date +"%s"
+}
+
+# backup a file if it exists along with a timestamp
+function backupFile() {
+  file=$1
+
+  # check if exists and create backup
+  if [ -f $file ]; then
+    ver=$(timestamp)
+    backup="${file}.bak.$ver"
+    echo "creating backup $backup"
+    mv $file $backup
+  fi
+}
