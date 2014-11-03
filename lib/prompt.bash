@@ -33,7 +33,7 @@ fi
 
 PromptResetColor="\[\033[0m\]"
 
-DEFAULT_PROMPT="$Cyan\u:$BYellow$PathShort$PromptResetColor"
+DEFAULT_PROMPT="$Cyan\u@\h:$BYellow$PathShort$PromptResetColor"
 export PS1='$(git branch &>/dev/null;\
     if [ $? -eq 0 ]; then \
       echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
