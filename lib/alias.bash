@@ -29,3 +29,6 @@ alias hg-rsync='hg qref && hg qpop && rsync -azvP ~/recs/r3/.hg/patches/ ubee:re
 alias .='pwd'
 alias ..='cd .. && .'
 alias ...='cd ../.. && .'
+
+# Docker
+alias docker-rm-all="docker rm \$(docker ps -a -q)"
