@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ ! -z "$BASH_CONFIG_INITIALIZED" ]; then
+  echo "bash config already initialized...skipping" 1>&2
+  return
+fi
+BASH_CONFIG_INITIALIZED=1
+
 LIB_DIR=$BASEDIR/lib
 
 # call init before anything to get ready for setup
