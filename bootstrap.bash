@@ -31,31 +31,31 @@ source $LIB_DIR/greeting.bash
 # Load the default .profile
 [[ -s "$HOME/.profile" ]] && \
   echo "Loading local profile..."
-  localProfileStartTime=$(currentTime); \
+  localProfileStartTime=$(current_time); \
   source "$HOME/.profile"; \
-  localProfileEndTime=$(currentTime); \
+  localProfileEndTime=$(current_time); \
   echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
   echo ""
 
 echo -e "Setting up local bash environment..."
 
 # setup homebrew
-loadScript $LIB_DIR/brew.bash
+load_script $LIB_DIR/brew.bash
 
 # setup git
-loadScript $LIB_DIR/git.bash
+load_script $LIB_DIR/git.bash
 
 # setup prompt
-loadScript $LIB_DIR/prompt.bash
+load_script $LIB_DIR/prompt.bash
 
 # install custom aliases
-loadScript $LIB_DIR/alias.bash
+load_script $LIB_DIR/alias.bash
 
 # set up all applications run configurations
 source $LIB_DIR/app_rc.bash
 
 # display time taken to load bashrc
-endTime=$(currentTime)
+endTime=$(current_time)
 
 echo -e "\nTotal time taken: $(expr $endTime - $overallStartTime) msec\n"
 

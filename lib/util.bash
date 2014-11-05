@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # get current time in milliseconds
-function currentTime() {
+function current_time() {
   echo $(($(date +%s%N)/1000000))
 }
 
 # load a script and measure time taken
-function loadScript() {
-  startTime=$(currentTime)
+function load_script() {
+  startTime=$(current_time)
 
   # execute script
   file=$1
@@ -26,6 +26,6 @@ function loadScript() {
   # print status
   appName=$(cprint "`basename $file | sed 's/.bash$//'`" $BWhite)
   status=$(cprint $code $color)
-  timeTaken=$(expr $(currentTime) - $startTime)
+  timeTaken=$(expr $(current_time) - $startTime)
   echo -e "....................\r$appName\r\033[20C$status [${timeTaken} msec]"
 }
