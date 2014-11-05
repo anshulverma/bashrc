@@ -29,6 +29,18 @@ fi
 
 export DISPLAY
 
+PLATFORM='unknown'
+unamestr=$(uname)
+if [[ "$unamestr" == 'Linux' ]]; then
+  PLATFORM='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+  PLATFORM='freebsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+  PLATFORM='darwin'
+fi
+
+export PLATFORM
+
 #-------------------------------------------------------------
 # Some settings
 #-------------------------------------------------------------
