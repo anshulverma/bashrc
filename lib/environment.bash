@@ -29,17 +29,17 @@ fi
 
 export DISPLAY
 
-PLATFORM='unknown'
-unamestr=$(uname)
-if [[ "$unamestr" == 'Linux' ]]; then
-  PLATFORM='linux'
-elif [[ "$unamestr" == 'FreeBSD' ]]; then
-  PLATFORM='freebsd'
-elif [[ "$unamestr" == 'Darwin' ]]; then
-  PLATFORM='darwin'
-fi
+function get_platform() {
+  case "$OSTYPE" in
+    solaris*) echo "SOLARIS" ;;
+    darwin*)  echo "OSX" ;;
+    linux*)   echo "LINUX" ;;
+    bsd*)     echo "BSD" ;;
+    *)        echo "unknown: $OSTYPE" ;;
+  esac
+}
 
-export PLATFORM
+export PLATFORM=$(get_platform)
 
 #-------------------------------------------------------------
 # Some settings
