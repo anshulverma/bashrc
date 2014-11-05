@@ -22,8 +22,11 @@ source $LIB_DIR/constants.bash
 # initialize colors
 source $LIB_DIR/colors.bash
 
-# append MANPATH
-MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+# environmental config
+source $LIB_DIR/environment.bash
+
+# greet the user with a welcome message and some session info
+source $LIB_DIR/greeting.bash
 
 # Load the default .profile
 [[ -s "$HOME/.profile" ]] && \
@@ -34,13 +37,12 @@ MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
   echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
   echo ""
 
-# environmental config
-loadScript $LIB_DIR/environment.bash
+echo -e "Setting up local bash environment..."
 
 # setup homebrew
 loadScript $LIB_DIR/brew.bash
 
-# setup prompt
+# setup git
 loadScript $LIB_DIR/git.bash
 
 # setup prompt
@@ -52,7 +54,9 @@ loadScript $LIB_DIR/alias.bash
 # set up all applications run configurations
 source $LIB_DIR/app_rc.bash
 
+# display time taken to load bashrc
 endTime=$(currentTime)
 
-echo ""
-echo "Total time taken: $(expr $endTime - $overallStartTime) msec"
+echo -e "\nTotal time taken: $(expr $endTime - $overallStartTime) msec\n"
+
+source $LIB_DIR/finalize.bash

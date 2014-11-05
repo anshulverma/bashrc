@@ -42,6 +42,9 @@ function get_platform() {
 
 export PLATFORM=$(get_platform)
 
+# append man path
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 #-------------------------------------------------------------
 # Some settings
 #-------------------------------------------------------------
