@@ -45,6 +45,12 @@ export PLATFORM=$(get_platform)
 # append man path
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
+export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
+export HISTIGNORE="&:bg:fg:ll:h"
+export HISTTIMEFORMAT="$(echo -e ${BCyan})[%d/%m %H:%M:%S]$(echo -e ${NC}) "
+export HISTCONTROL=ignoredups
+# export HOSTFILE=$HOME/.hosts    # Put a list of remote hosts in ~/.hosts
+
 #-------------------------------------------------------------
 # Some settings
 #-------------------------------------------------------------
