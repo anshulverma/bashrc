@@ -34,6 +34,9 @@ MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
   echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
   echo ""
 
+# environmental config
+loadScript $LIB_DIR/environment.bash
+
 # setup homebrew
 loadScript $LIB_DIR/brew.bash
 
