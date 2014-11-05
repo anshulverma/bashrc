@@ -1,7 +1,7 @@
 #!/bin/bash
 
-function get_xserver ()
-{
+# find DISPLAY
+function get_xserver() {
   case $TERM in
     xterm )
       XSERVER=$(who am i | awk '{print $NF}' | tr -d ')''(' )
@@ -29,6 +29,7 @@ fi
 
 export DISPLAY
 
+# set up PLATFORM variable
 function get_platform() {
   case "$OSTYPE" in
     solaris*) echo "SOLARIS" ;;
