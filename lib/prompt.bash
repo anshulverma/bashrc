@@ -36,7 +36,9 @@ function print_git_branch() {
 }
 
 # Test connection type:
-if [ -n "${SSH_CONNECTION}" ]; then
+if running_in_docker; then
+  CNX=${Yellow}       # Logged into a docker container
+elif [ -n "${SSH_CONNECTION}" ]; then
   CNX=${Green}        # Connected on remote machine, via ssh (good).
 elif [[ "${DISPLAY%%:0*}" != "" ]]; then
   CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
@@ -48,7 +50,7 @@ fi
 USER=${USER:-"$(whoami)"}
 if [[ ${USER} == "root" ]]; then
   SU=${Red}           # User is root.
-elif [[ ${USER} != $(logname) ]]; then
+elif [[ ${USER} != $LOGNAME ]]; then
   SU=${BRed}          # User is not login user.
 else
   SU=${Cyan}          # User is normal (well ... most of us are).
