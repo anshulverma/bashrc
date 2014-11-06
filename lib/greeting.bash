@@ -5,7 +5,8 @@ function bashrc_version() {
 }
 
 cat <<EOF
-Welcome to ${HOSTNAME}. Today is $(date)
+Welcome to host ${HOSTNAME}.
+Current time is $(date)
 
 For more information about this configuration,
 please visit https://github.com/anshulverma/bashrc
