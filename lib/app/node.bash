@@ -1,9 +1,22 @@
 #!/bin/bash
 
-export NODE_PATH=/usr/local/lib/node_modules/
+if [ -z "$(which node)" ]; then
+  EXIT_CODE=1
+  return
+fi
 
-# Grunt autocomplete
-eval "$(grunt --completion=bash)"
+case $PLATFORM in
+  OSX) NODE_PATH=/usr/local/lib/node_modules/
+       ;;
+  LINUX) NODE_PATH=/usr/lib/node_modules/
+         ;;
+esac
+export NODE_PATH
+
+if [ ! -z "$(which grunt)" ]; then
+  # Grunt autocomplete
+  eval "$(grunt --completion=bash)"
+fi
 
 ###-begin-npm-completion-###
 #

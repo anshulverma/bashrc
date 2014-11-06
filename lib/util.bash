@@ -16,10 +16,13 @@ function load_script() {
 
   # find out the status code from exit code
   case $EXIT_CODE in
-    0) code="DONE";
-       color=$Green;
+    0) code="DONE"
+       color=$Green
        ;;
-    *) code="ERROR";
+    1) code="SKIPPED"
+       color=$White
+       ;;
+    *) code="ERROR"
        color=$Red
   esac
 
