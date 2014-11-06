@@ -21,9 +21,11 @@ function all_keys() {
 }
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-  eval `ssh-agent -s`
+  eval `ssh-agent -s` &>/dev/null
 
-  for key in $(all_keys); do
-    ssh-add $key
-  done
+  if $(test ! running_in_docker); then
+    for key in $(all_keys); do
+      ssh-add $key
+    done
+  fi
 fi
