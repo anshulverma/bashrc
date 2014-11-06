@@ -37,7 +37,7 @@ source $LIB_DIR/greeting.bash
   echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
   echo ""
 
-echo -e "Setting up local bash environment..."
+echo -e "Setting up bash environment..."
 
 # setup homebrew
 load_script $LIB_DIR/brew.bash
