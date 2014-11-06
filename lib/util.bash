@@ -116,25 +116,32 @@ function split() {
 }
 
 # shortens a path by trimming mid elements to 2 characters
+# if it is greater than 32 chars
+#
 # usage:
 # ellipsify_path /usr/apps/tr/name
 # result:
 # /us/ap/tr/name
 function shorten_path() {
+  # replace home path with "~"
   path=$(echo $1 | sed "s;$HOME;~;")
+
+  # do not shorten path if it is shorter than 32 chars
+  if [ ${#path} -lt 32 ]; then
+    echo $path
+    return
+  fi
+
   short_path=
   for part in $(split_path $path); do
-    if [ ${#part} -gt 2 ]; then
-      short_part=$(echo $part | cut -c -2)
-    else
-      short_part=$part
-    fi
-    if [ -z "$short_path" ] && [ "$short_part" == '~' ]; then
-      short_path=$short_part
+    trimmed_part=$(echo $part | cut -c -2)
+
+    if [ -z "$short_path" ] && [ "$trimmed_part" == '~' ]; then
+      short_path=$trimmed_part
     elif [ $part == $(basename $1) ]; then
       short_path=${short_path}"/"${part}
     else
-      short_path=${short_path}"/"${short_part}
+      short_path=${short_path}"/"${trimmed_part}
     fi
   done
   echo $short_path
