@@ -19,10 +19,10 @@ function load_script() {
     0) code="DONE"
        color=$Green
        ;;
-    1) code="SKIPPED"
+    1) code="SKIP"
        color=$White
        ;;
-    *) code="ERROR"
+    *) code="ERR "
        color=$Red
   esac
 
