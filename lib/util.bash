@@ -61,8 +61,8 @@ function fe() {
        -exec ${2:-file} {} \;
 }
 
-#  Find a pattern in a set of files and highlight them:
-#+ (needs a recent version of egrep).
+# Find a pattern in a set of files and highlight them:
+# (needs a recent version of egrep).
 function fstr() {
   OPTIND=1
   local mycase=""
@@ -95,4 +95,47 @@ function swap() {
   mv "$1" $TMPFILE
   mv "$2" "$1"
   mv $TMPFILE "$2"
+}
+
+# usage:
+# split_path /some/path
+function split_path() {
+  split "/" $1
+}
+
+# split a string using a delimiter
+# split '/' /some/path
+function split() {
+  local IFS=$1
+  local split=
+  read -ra ADDR <<< "$2"
+  for part in "${ADDR[@]}"; do
+    split=$split" "$part
+  done
+  echo $split
+}
+
+# shortens a path by trimming mid elements to 2 characters
+# usage:
+# ellipsify_path /usr/apps/tr/name
+# result:
+# /us/ap/tr/name
+function shorten_path() {
+  path=$(echo $1 | sed "s;$HOME;~;")
+  short_path=
+  for part in $(split_path $path); do
+    if [ ${#part} -gt 2 ]; then
+      short_part=$(echo $part | cut -c -2)
+    else
+      short_part=$part
+    fi
+    if [ -z "$short_path" ] && [ "$short_part" == '~' ]; then
+      short_path=$short_part
+    elif [ $part == $(basename $1) ]; then
+      short_path=${short_path}"/"${part}
+    else
+      short_path=${short_path}"/"${short_part}
+    fi
+  done
+  echo $short_path
 }

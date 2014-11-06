@@ -41,16 +41,17 @@ if [ -n "${SSH_CONNECTION}" ]; then
 elif [[ "${DISPLAY%%:0*}" != "" ]]; then
   CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
 else
-  CNX=${Cyan}        # Connected on local machine.
+  CNX=${Cyan}         # Connected on local machine.
 fi
 
 # Test user type:
+USER=${USER:-"$(whoami)"}
 if [[ ${USER} == "root" ]]; then
   SU=${Red}           # User is root.
 elif [[ ${USER} != $(logname) ]]; then
   SU=${BRed}          # User is not login user.
 else
-  SU=${Cyan}         # User is normal (well ... most of us are).
+  SU=${Cyan}          # User is normal (well ... most of us are).
 fi
 
 # Number of CPU
@@ -97,6 +98,11 @@ function job_color() {
   fi
 }
 
+# print current path in short form
+function get_current_path() {
+  shorten_path $PWD
+}
+
 # Now we construct the prompt.
 PROMPT_COMMAND="history -a"
 case ${TERM} in
@@ -104,8 +110,8 @@ case ${TERM} in
     PS1="\$(print_git_branch)"
     # User@Host (with connection type info):
     PS1=${PS1}"\[${SU}\]\u\[${ResetColor}\]@\[${CNX}\]\h\[${ResetColor}\]"
-    # Prompt (with 'job' info):
-    PS1=${PS1}":\$(load_color)\w${ResetColor}"
+    # PWD (with 'job' info):
+    PS1=${PS1}":\$(load_color)\$(get_current_path)${ResetColor}"
     # ending character '#' with load color
     PS1=${PS1}" \$(job_color)#${ResetColor} "
     ;;
