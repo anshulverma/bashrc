@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+if [ ! -z "$SSH_CONNECTION" ]; then
+  EXIT_CODE=1
+  return
+fi
+
 function latest_key() {
   key_name=`ls -1 $HOME/.ssh/keys | tail -n 2 | head -n 1`
   echo "$HOME/.ssh/keys/${key_name}"
