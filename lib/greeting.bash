@@ -1,14 +1,19 @@
 #!/bin/bash
 
-echo -e "$(date)\n"
+function bashrc_version() {
+  git --git-dir=$BASH_RC_BASEDIR/.git --work-tree=$BASH_RC_BASEDIR describe
+}
 
-echo -e "Welcome to ${BWhite}${HOSTNAME}${ResetColor}"
+cat <<EOF
+Welcome to ${HOSTNAME}. Today is $(date)
 
-echo -e "For more information about this configuration,\n\
-please visit https://github.com/anshulverma/bashrc\n"
+For more information about this configuration,
+please visit https://github.com/anshulverma/bashrc
 
-echo -e "Running BASH version ${BRed}${BASH_VERSION%.*}${ResetColor} \
-- on DISPLAY ${BRed}$DISPLAY${ResetColor}\n"
+EOF
+
+echo -e "Configuring version ${BRed}$(bashrc_version)${ResetColor} \
+running BASH ${BRed}${BASH_VERSION%.*}${ResetColor}\n"
 
 function _exit() {              # Function to run upon exit of shell.
   echo -e "${BRed}Hasta la vista, baby${ResetColor}"
