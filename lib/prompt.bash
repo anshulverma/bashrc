@@ -21,18 +21,44 @@ if ${use_color} ; then
   fi
 fi
 
+# escape color code
+# also, don't use color if use_color is false
+function pcolor() {
+  if ${use_color} ; then
+    echo "\[$1\]"
+  fi
+}
+
 function print_git_branch() {
   git branch &>/dev/null;
   if [ $? -eq 0 ]; then
-    git status | grep "nothing to commit" > /dev/null 2>&1;
+    git status | grep "nothing to commit" > /dev/null 2>&1
     if [ "$?" -eq "0" ]; then
       # clean repository - nothing to commit
-      echo -e "$Green$(__git_ps1 "(%s)")${ResetColor} ";
+      printf "$(pcolor $Green)$(__git_ps1 "(%s)")$(pcolor $ResetColor)"
     else
       # changes to working tree
-      echo -e "$IRed$(__git_ps1 "(%s)")${ResetColor} ";
+      printf "$(pcolor $IRed)$(__git_ps1 "(%s)")$(pcolor $ResetColor)"
     fi
   fi
+}
+
+function print_username() {
+  printf "$(pcolor $SU)\u$(pcolor $ResetColor)"
+}
+
+function print_hostname() {
+  printf "$(pcolor $CNX)\h$(pcolor $ResetColor)"
+}
+
+function print_cwd_with_load() {
+  load_color=$(load_color)
+  printf "$(pcolor $load_color)$(get_current_path)$(pcolor $ResetColor)"
+}
+
+function print_end_with_job_info() {
+  job_info_color=$(job_color)
+  printf "$(pcolor $job_info_color)#$(pcolor $ResetColor)"
 }
 
 # Test connection type:
@@ -105,19 +131,19 @@ function get_current_path() {
   shorten_path $PWD
 }
 
-# Now we construct the prompt.
-PROMPT_COMMAND="history -a"
-case ${TERM} in
-  *term | rxvt | linux)
-    PS1="\$(print_git_branch)"
-    # User@Host (with connection type info):
-    PS1=${PS1}"\[${SU}\]\u\[${ResetColor}\]@\[${CNX}\]\h\[${ResetColor}\]"
-    # PWD (with 'job' info):
-    PS1=${PS1}":\$(load_color)\$(get_current_path)${ResetColor}"
-    # ending character '#' with load color
-    PS1=${PS1}" \$(job_color)#${ResetColor} "
-    ;;
-  *)
-    PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
-    ;;
-esac
+function build_prompt() {
+  print_git_branch
+  printf ' '
+  print_username
+  printf '@'
+  print_hostname
+  printf ':'
+  print_cwd_with_load
+  printf ' '
+  print_end_with_job_info
+  printf ' '
+}
+
+export PROMPT_COMMAND='
+  PS1=$(build_prompt);
+'
