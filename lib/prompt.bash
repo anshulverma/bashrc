@@ -203,7 +203,7 @@ function prompt_status_log() {
   echo -e ${SU}${PROMPT_STATUS_SU}
   echo -e ${CNX}${PROMPT_STATUS_CNX}
   echo -e $(load_color)$(get_load_status)${ResetColor}
-  echo -e "you are in "$PWD$
+  echo -e "you are in "$PWD
   echo -e $(job_color)$(get_job_info_status)${ResetColor}
 }
 
