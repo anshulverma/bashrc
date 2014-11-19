@@ -30,14 +30,14 @@ source $LIB_DIR/greeting.bash
 
 # Load the default .profile
 [[ -s "$HOME/.profile" ]] && \
-  echo "Loading local profile..."
+  bash_echo "Loading local profile..."
   localProfileStartTime=$(current_time); \
   source "$HOME/.profile"; \
   localProfileEndTime=$(current_time); \
-  echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
-  echo ""
+  bash_echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
+  bash_echo ""
 
-echo -e "Setting up bash environment..."
+bash_echo -e "Setting up bash environment..."
 
 # setup homebrew
 load_script $LIB_DIR/brew.bash
@@ -57,6 +57,6 @@ source $LIB_DIR/app_rc.bash
 # display time taken to load bashrc
 endTime=$(current_time)
 
-echo -e "\nTotal time taken: $(expr $endTime - $overallStartTime) msec\n"
+bash_echo -e "\nTotal time taken: $(expr $endTime - $overallStartTime) msec\n"
 
 source $LIB_DIR/finalize.bash

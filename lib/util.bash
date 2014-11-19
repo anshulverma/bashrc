@@ -30,7 +30,7 @@ function load_script() {
   appName=$(cprint "`basename $file | sed 's/.bash$//'`" $BWhite)
   status=$(cprint $code $color)
   timeTaken=$(expr $(current_time) - $startTime)
-  echo -e "....................\r$appName\r\033[20C$status [${timeTaken} msec]"
+  bash_echo -e "....................\r$appName\r\033[20C$status [${timeTaken} msec]"
 }
 
 # ask user for y/n input
@@ -44,6 +44,12 @@ function ask() {
     y*|Y*) return 0 ;;
     *) return 1 ;;
   esac
+}
+
+function bash_echo() {
+  if [ "$QUIET_MODE" != "true" ]; then
+    echo $1 $2
+  fi
 }
 
 #-------------------------------------------------------------
