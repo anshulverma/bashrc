@@ -35,10 +35,10 @@ function print_git_branch() {
     git status | grep "nothing to commit" > /dev/null 2>&1
     if [ "$?" -eq "0" ]; then
       # clean repository - nothing to commit
-      printf "$(pcolor $Green)$(__git_ps1 "(%s)")$(pcolor $ResetColor)"
+      printf "$(pcolor $Green)$(__git_ps1 "(%s)")$(pcolor $ResetColor) "
     else
       # changes to working tree
-      printf "$(pcolor $IRed)$(__git_ps1 "(%s)")$(pcolor $ResetColor)"
+      printf "$(pcolor $IRed)$(__git_ps1 "(%s)")$(pcolor $ResetColor) "
     fi
   fi
 }
@@ -133,7 +133,6 @@ function get_current_path() {
 
 function build_prompt() {
   print_git_branch
-  printf ' '
   print_username
   printf '@'
   print_hostname
