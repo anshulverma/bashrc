@@ -66,7 +66,7 @@ function get_git_status() {
 }
 
 function print_username() {
-  printf "$(pcolor $SU)\u$(pcolor $ResetColor)"
+  printf "$(pcolor $SU)\\\\u$(pcolor $ResetColor)"
 }
 
 function print_hostname() {
