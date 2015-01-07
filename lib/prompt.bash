@@ -21,6 +21,12 @@ if ${use_color} ; then
   fi
 fi
 
+### check if git functions can be enabled (disable if not installed or running in docker)
+disable_git=
+if [ -z "$(which git)" ] || running_in_docker; then
+  disable_git=1
+fi
+
 # escape color code
 # also, don't use color if use_color is false
 function pcolor() {
@@ -30,6 +36,10 @@ function pcolor() {
 }
 
 function git_color() {
+  if [ $disable_git ]; then
+    return
+  fi
+
   git branch &>/dev/null;
   if [ $? -eq 0 ]; then
     git status | grep "nothing to commit" > /dev/null 2>&1
@@ -44,6 +54,10 @@ function git_color() {
 }
 
 function print_git_branch() {
+  if [ $disable_git ]; then
+    return
+  fi
+
   git branch &>/dev/null;
   if [ $? -eq 0 ]; then
     local git_color=$(git_color)
@@ -52,6 +66,10 @@ function print_git_branch() {
 }
 
 function get_git_status() {
+  if [ $disable_git ]; then
+    return
+  fi
+
   git branch &>/dev/null;
   if [ $? -eq 0 ]; then
     git status | grep "nothing to commit" > /dev/null 2>&1
