@@ -44,6 +44,7 @@ alias ...='cd ../.. && .'
 
 # Docker
 alias docker-rm-all="docker rm \$(docker ps -a -q)"
+alias docker-kill-all="docker kill \$(docker ps -a -q)"
 
 # prevent accidentally clobbering files
 alias rm='rm -i'
