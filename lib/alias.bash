@@ -45,6 +45,10 @@ alias ...='cd ../.. && .'
 # Docker
 alias docker-rm-all="docker rm \$(docker ps -a -q)"
 alias docker-kill-all="docker kill \$(docker ps -a -q)"
+function docker-exec() {
+  container_id=$(docker_container_id $1)
+  docker exec -it $container_id bash
+}
 
 # prevent accidentally clobbering files
 alias rm='rm -i'
