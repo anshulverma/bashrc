@@ -105,6 +105,9 @@ function print_end_with_job_info() {
 if running_in_docker; then
   CNX=${Yellow}       # Logged into a docker container
   PROMPT_STATUS_CNX="logged into docker"
+elif running_in_vagrant; then
+  CNX=${Purple}       # Logged into a vagrant box
+  PROMPT_STATUS_CNX="logged into vagrant box"
 elif [ -n "${SSH_CONNECTION}" ]; then
   CNX=${Green}        # Connected on remote machine, via ssh (good).
   PROMPT_STATUS_CNX="logged into remote machine via ssh"

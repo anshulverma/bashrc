@@ -157,3 +157,8 @@ function shorten_path() {
 function running_in_docker() {
   $(test -f '/proc/self/cgroup') && $(awk -F/ '$2 == "docker"' /proc/self/cgroup | read)
 }
+
+# check if you are running in a vagrant box
+function running_in_vagrant() {
+  [ "$USER" == "ansverma" ] || [ "$ENV_TYPE" == "ansverma" ]
+}
