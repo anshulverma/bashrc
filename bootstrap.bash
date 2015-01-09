@@ -29,13 +29,14 @@ source $LIB_DIR/environment.bash
 source $LIB_DIR/greeting.bash
 
 # Load the default .profile
-[[ -s "$HOME/.profile" ]] && \
-  bash_echo "Loading local profile..." \
-  localProfileStartTime=$(current_time); \
-  source "$HOME/.profile"; \
-  localProfileEndTime=$(current_time); \
-  bash_echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"; \
+if [ -f "$HOME/.profile" ]; then
+  bash_echo "Loading local profile..."
+  localProfileStartTime=$(current_time)
+  source "$HOME/.profile"
+  localProfileEndTime=$(current_time)
+  bash_echo "Local profile loaded in $(expr $localProfileEndTime - $localProfileStartTime) msec"
   bash_echo ""
+fi
 
 bash_echo -e "Setting up bash environment..."
 
