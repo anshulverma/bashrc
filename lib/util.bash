@@ -160,5 +160,5 @@ function running_in_docker() {
 
 # check if you are running in a vagrant box
 function running_in_vagrant() {
-  [ "$USER" == "ansverma" ] || [ "$ENV_TYPE" == "ansverma" ]
+  [ "$USER" == "vagrant" ] || [ "$ENV_TYPE" == "vagrant" ]
 }
