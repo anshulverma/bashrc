@@ -49,6 +49,10 @@ function docker-exec() {
   container_id=$(docker_container_id $1)
   docker exec -it $container_id bash
 }
+function docker-kill() {
+  container_id=$(docker_container_id $1)
+  docker kill $container_id
+}
 
 # prevent accidentally clobbering files
 alias rm='rm -i'
