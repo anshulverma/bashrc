@@ -30,7 +30,7 @@ source $LIB_DIR/greeting.bash
 
 # Load the default .profile
 [[ -s "$HOME/.profile" ]] && \
-  bash_echo "Loading local profile..."
+  bash_echo "Loading local profile..." \
   localProfileStartTime=$(current_time); \
   source "$HOME/.profile"; \
   localProfileEndTime=$(current_time); \
