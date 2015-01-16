@@ -23,7 +23,7 @@ fi
 
 ### check if git functions can be enabled (disable if not installed or running in docker)
 disable_git=
-if [ -z "$(which git)" ] || running_in_docker; then
+if [ -z "$(which git)" ] || running_in_docker || running_in_vagrant; then
   disable_git=1
 fi
 
