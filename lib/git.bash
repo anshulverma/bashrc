@@ -6,9 +6,11 @@ if [ -z "$(which git)" ]; then
 fi
 
 if [ $PLATFORM == 'OSX' ]; then
+  git_version=`git --version | sed 's/[a-z ]*//g'`
+
   # git auto complete
-  source $CELLAR_PATH/git/2.1.1/etc/bash_completion.d/git-completion.bash
+  source $CELLAR_PATH/git/${git_version}/etc/bash_completion.d/git-completion.bash
 
   # git prompt
-  source $CELLAR_PATH/git/2.1.1/etc/bash_completion.d/git-prompt.sh
+  source $CELLAR_PATH/git/${git_version}/etc/bash_completion.d/git-prompt.sh
 fi
