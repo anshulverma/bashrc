@@ -21,10 +21,15 @@ if ${use_color} ; then
   fi
 fi
 
-### check if git functions can be enabled (disable if not installed or running in docker)
-disable_git=
-if [ -z "$(which git)" ] || running_in_docker || running_in_vagrant; then
-  disable_git=1
+### check if scm functions can be enabled (disable if not installed or running in docker)
+scm_installed=
+if [ ! -z "$(which git)" ] || [ ! -z "$(which hg)" ]; then
+  scm_installed=1
+fi
+
+disable_scm=
+if [ ! $scm_installed ] || running_in_docker || running_in_vagrant; then
+  disable_scm=1
 fi
 
 # escape color code
@@ -35,15 +40,39 @@ function pcolor() {
   fi
 }
 
-function git_color() {
-  if [ $disable_git ]; then
+function get_scm_type() {
+  git status &>/dev/null
+  if [ "$?" == "0" ]; then
+    echo "git"
     return
   fi
 
-  git branch &>/dev/null;
-  if [ $? -eq 0 ]; then
+  hg status &>/dev/null
+  if [ "$?" == "0" ]; then
+    echo "hg"
+    return
+  fi
+
+  echo ""
+}
+
+function scm_color() {
+  if [ $disable_scm ]; then
+    return
+  fi
+
+  scm_type=$(get_scm_type)
+  if [ "${scm_type}" == "git" ]; then
     git status | grep "nothing to commit" > /dev/null 2>&1
     if [ "$?" -eq "0" ]; then
+      # clean repository - nothing to commit
+      echo $Green
+    else
+      # changes to working tree
+      echo $IRed
+    fi
+  elif [ "${scm_type}" == "hg" ]; then
+    if [ "$(hg status)" == "" ]; then
       # clean repository - nothing to commit
       echo $Green
     else
@@ -53,33 +82,46 @@ function git_color() {
   fi
 }
 
-function print_git_branch() {
-  if [ $disable_git ]; then
+function print_scm_branch() {
+  if [ $disable_scm ]; then
     return
   fi
 
-  git branch &>/dev/null;
-  if [ $? -eq 0 ]; then
-    local git_color=$(git_color)
-    printf "$(pcolor $git_color)$(__git_ps1 "(%s)")$(pcolor $ResetColor) "
+  scm_type=$(get_scm_type)
+  branch_name=
+  if [ "${scm_type}" == "git" ]; then
+    branch_name=$(__git_ps1 "(%s)")
+  elif [ "${scm_type}" == "hg" ]; then
+    branch_name="($(hg branch))"
+  fi
+
+  if [ "${branch_name}" != "" ]; then
+    local scm_color=$(scm_color)
+    printf "$(pcolor $scm_color)${branch_name}$(pcolor $ResetColor) "
   fi
 }
 
-function get_git_status() {
-  if [ $disable_git ]; then
+function get_scm_status() {
+  if [ $disable_scm ]; then
     return
   fi
 
-  git branch &>/dev/null;
-  if [ $? -eq 0 ]; then
+  scm_type=$(get_scm_type)
+  if [ "${scm_type}" == "git" ]; then
     git status | grep "nothing to commit" > /dev/null 2>&1
     if [ "$?" -eq "0" ]; then
       echo "git repository is clean"
     else
       echo "git repository is dirty"
     fi
+  elif [ "${scm_type}" == "hg" ]; then
+    if [ "$(hg status)" == "" ]; then
+      echo "mercurial repository is clean"
+    else
+      echo "mercurial repository is dirty"
+    fi
   else
-    echo "not in a git repository"
+    echo "not in a scm repository"
   fi
 }
 
@@ -208,7 +250,7 @@ function get_current_path() {
 }
 
 function build_prompt() {
-  print_git_branch
+  print_scm_branch
   print_username
   printf '@'
   print_hostname
@@ -220,7 +262,7 @@ function build_prompt() {
 }
 
 function prompt_status_log() {
-  echo -e $(git_color)$(get_git_status)
+  echo -e $(scm_color)$(get_scm_status)
   echo -e ${SU}${PROMPT_STATUS_SU}
   echo -e ${CNX}${PROMPT_STATUS_CNX}
   echo -e $(load_color)$(get_load_status)${ResetColor}
