@@ -2,7 +2,7 @@
 
 # get current time in milliseconds
 function current_time() {
-  echo $(($(date +%s%N)/1000000))
+  echo $(date +%s%N | cut -b1-13)
 }
 
 # load a script and measure time taken
