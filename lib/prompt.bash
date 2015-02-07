@@ -40,45 +40,63 @@ function pcolor() {
   fi
 }
 
-function get_scm_type() {
-  git status &>/dev/null
-  if [ "$?" == "0" ]; then
-    echo "git"
-    return
+function prompt_init() {
+  PROMPT_DEBUG=${PROMPT_DEBUG:-"0"}
+  if [ "${PROMPT_DEBUG}" == "1" ]; then
+    startTime=$(current_time)
+    DEBUG_INFO="\n----DEBUG INFO----"
   fi
 
-  hg status &>/dev/null
-  if [ "$?" == "0" ]; then
-    echo "hg"
-    return
-  fi
+  load_scm_info
 
-  echo ""
+  if [ "${PROMPT_DEBUG}" == "1" ]; then
+    timeTaken=$(expr $(current_time) - $startTime)
+    DEBUG_INFO=$DEBUG_INFO"\nscm_load_time: "$timeTaken
+  fi
 }
 
-function scm_color() {
+function prompt_finalize() {
+  if [ "${PROMPT_DEBUG}" == "1" ]; then
+    timeTaken=$(expr $(current_time) - $startTime)
+    DEBUG_INFO=$DEBUG_INFO"\ntotal_time: "$timeTaken
+
+    echo $DEBUG_INFO"\n------------------\n # "
+  fi
+}
+
+function load_scm_info() {
+  scm_type=
+  scm_status=
+
   if [ $disable_scm ]; then
     return
   fi
 
-  scm_type=$(get_scm_type)
-  if [ "${scm_type}" == "git" ]; then
-    git status | grep "nothing to commit" > /dev/null 2>&1
+  git_status="$(git status 2>/dev/null)"
+  if [ "$?" == "0" ]; then
+    scm_type="git"
+    echo "${git_status}" | grep "nothing to commit" &>/dev/null
     if [ "$?" -eq "0" ]; then
       # clean repository - nothing to commit
-      echo $Green
+      scm_status=$Green
     else
       # changes to working tree
-      echo $IRed
+      scm_status=$IRed
     fi
-  elif [ "${scm_type}" == "hg" ]; then
-    if [ "$(hg status)" == "" ]; then
+    return
+  fi
+
+  hg_status="$(hg status 2>/dev/null)"
+  if [ "$?" == "0" ]; then
+    scm_type="hg"
+    if [ "${hg_status}" == "" ]; then
       # clean repository - nothing to commit
-      echo $Green
+      scm_status=$Green
     else
       # changes to working tree
-      echo $IRed
+      scm_status=$IRed
     fi
+    return
   fi
 }
 
@@ -87,7 +105,6 @@ function print_scm_branch() {
     return
   fi
 
-  scm_type=$(get_scm_type)
   branch_name=
   if [ "${scm_type}" == "git" ]; then
     branch_name=$(__git_ps1 "(%s)")
@@ -96,8 +113,7 @@ function print_scm_branch() {
   fi
 
   if [ "${branch_name}" != "" ]; then
-    local scm_color=$(scm_color)
-    printf "$(pcolor $scm_color)${branch_name}$(pcolor $ResetColor) "
+    printf "$(pcolor $scm_status)${branch_name}$(pcolor $ResetColor) "
   fi
 }
 
@@ -106,7 +122,6 @@ function get_scm_status() {
     return
   fi
 
-  scm_type=$(get_scm_type)
   if [ "${scm_type}" == "git" ]; then
     git status | grep "nothing to commit" > /dev/null 2>&1
     if [ "$?" -eq "0" ]; then
@@ -250,6 +265,8 @@ function get_current_path() {
 }
 
 function build_prompt() {
+  prompt_init
+
   print_scm_branch
   print_username
   printf '@'
@@ -259,6 +276,8 @@ function build_prompt() {
   printf ' '
   print_end_with_job_info
   printf ' '
+
+  prompt_finalize
 }
 
 function prompt_status_log() {
