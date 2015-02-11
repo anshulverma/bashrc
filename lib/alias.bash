@@ -53,6 +53,13 @@ function docker-kill() {
   container_id=$(docker_container_id $1)
   docker kill $container_id
 }
+function docker-inspect() {
+  container_id=$(docker_container_id $1)
+  docker inspect $container_id
+}
+function docker-ip() {
+  docker-inspect $@ | grep "IPAddress"
+}
 
 # prevent accidentally clobbering files
 alias rm='rm -i'
