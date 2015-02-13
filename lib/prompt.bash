@@ -64,11 +64,16 @@ function prompt_finalize() {
   fi
 }
 
+function disabled_by_git_config() {
+  config=$(git config --get prompt.disable 2>/dev/null)
+  [ "$config" == "1" ]
+}
+
 function load_scm_info() {
   scm_type=
   scm_status=
 
-  if [ $disable_scm ]; then
+  if [ $disable_scm ] || disabled_by_git_config; then
     return
   fi
 
