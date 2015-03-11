@@ -289,7 +289,9 @@ function build_prompt() {
 }
 
 function prompt_status_log() {
-  echo -e $(scm_color)$(get_scm_status)
+  prompt_init
+
+  echo -e ${scm_status}$(get_scm_status)
   echo -e ${SU}${PROMPT_STATUS_SU}
   echo -e ${CNX}${PROMPT_STATUS_CNX}
   echo -e $(load_color)$(get_load_status)${ResetColor}
