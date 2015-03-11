@@ -171,13 +171,16 @@ elif running_in_vagrant; then
   CNX=${Purple}       # Logged into a vagrant box
   PROMPT_STATUS_CNX="logged into vagrant box"
 elif [ -n "${SSH_CONNECTION}" ]; then
-  CNX=${Green}        # Connected on remote machine, via ssh (good).
+  CNX=${Green}        # Connected on remote machine, via ssh (good)
   PROMPT_STATUS_CNX="logged into remote machine via ssh"
+elif test "${DISPLAY#*xquartz}" != "$DISPLAY"; then
+  CNX=${BCyan}        # Logged into local machine with xquartz running
+  PROMPT_STATUS_CNX="logged into local machine (xquartz is running)"
 elif [[ "${DISPLAY%%:0*}" != "" ]]; then
-  CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
+  CNX=${ALERT}        # Connected on remote machine, not via ssh (bad)
   PROMPT_STATUS_CNX="you are in a remote machine but not via ssh"
 else
-  CNX=${Cyan}         # Connected on local machine.
+  CNX=${Cyan}         # Connected on local machine
   PROMPT_STATUS_CNX="connected to local machine"
 fi
 
