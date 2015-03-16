@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$(which hdfs)" ]; then
+if [ -z "$(which hdfs)" ] || [ $PLATFORM != 'OSX' ]; then
   EXIT_CODE=1
   return
 fi
