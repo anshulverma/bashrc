@@ -45,6 +45,10 @@ alias ...='cd ../.. && .'
 # Docker
 alias docker-rm-all="docker rm \$(docker ps -a -q)"
 alias docker-kill-all="docker kill \$(docker ps -a -q)"
+alias docker-cleanup="docker rm \$(docker ps -a 2>&1 |
+                                   grep -ve \"Up [0-9]\+ \(seconds\|minutes\|hours\|days\) \" |
+                                   grep -v \"CONTAINER ID\" |
+                                   cut -f 1 -d ' ')"
 function docker-exec() {
   container_id=$(docker_container_id $1)
   docker exec -it $container_id bash
