@@ -39,11 +39,15 @@ function load_script() {
 #   do_something
 # fi
 function ask() {
-  echo -n "$@" '[y/n] ' ; read ans
-  case "$ans" in
-    y*|Y*) return 0 ;;
-    *) return 1 ;;
-  esac
+  query="$@"
+  while true; do
+    echo -n "$query" '[y/n] ' ; read ans
+    case "$ans" in
+      y*|Y*) return 0 ;;
+      n*|N*) return 1 ;;
+      *) echo "invalid input, please type 'y' for yes and 'n' for no" ;;
+    esac
+  done
 }
 
 function bash_echo() {
