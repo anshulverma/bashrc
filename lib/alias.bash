@@ -88,3 +88,6 @@ alias j='jobs -l'
 # disk info
 alias du='du -kh'
 alias df='df -kTh'
+
+# git
+alias gca='git commit -am'
