@@ -1,5 +1,5 @@
 
-n.n.n / 2015-04-14
+0.4.3 / 2015-04-14
 ==================
 
   * load a custom init file first to allow to override QUIET_MODE
