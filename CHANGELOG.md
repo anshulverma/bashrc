@@ -1,4 +1,10 @@
 
+0.5 / 2015-04-14
+==================
+
+  * added more details in changelog
+  * fix version in changelog
+
 0.4.3 / 2015-04-14
 ==================
 
