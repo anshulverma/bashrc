@@ -80,6 +80,11 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# short to force clobber
+alias rmf='rm -f'
+alias cpf='cp -f'
+alias mvf='mv -f'
+
 alias mkdir='mkdir -p'
 
 alias h='history'
