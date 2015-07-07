@@ -96,3 +96,10 @@ alias df='df -kTh'
 
 # git
 alias gca='git commit -am'
+
+### tmux
+
+# force 256-color support
+alias tmux="tmux -2"
+
+###
