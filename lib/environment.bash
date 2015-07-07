@@ -3,7 +3,7 @@
 # find DISPLAY
 function get_xserver() {
   case $TERM in
-    xterm )
+    xterm[a-z0-9\-]* )
       XSERVER=$(who am i | awk '{print $NF}' | tr -d ')''(' )
       # Ane-Pieter Wieringa suggests the following alternative:
       #  I_AM=$(who am i)
