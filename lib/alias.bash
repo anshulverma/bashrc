@@ -114,3 +114,16 @@ function tmw {
 alias htop="sudo htop"
 
 ###
+
+### chrome
+
+function chrome {
+  url="http://google.com"
+  if [ ! -z "$1" ]; then
+    url=$1
+  fi
+  echo $url
+  open -a Google\ Chrome "$url"
+}
+
+###
