@@ -122,7 +122,6 @@ function chrome {
   if [ ! -z "$1" ]; then
     url=$1
   fi
-  echo $url
   open -a Google\ Chrome "$url"
 }
 
