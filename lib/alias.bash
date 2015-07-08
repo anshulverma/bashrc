@@ -108,3 +108,9 @@ function tmw {
 }
 
 ###
+
+### utils
+
+alias htop="sudo htop"
+
+###
