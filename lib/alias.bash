@@ -100,7 +100,7 @@ alias gca='git commit -am'
 ### tmux
 
 # force 256-color support
-alias tmux="tmux -2 a"
+alias tmuxa="tmux -2 a"
 
 # Split watch into a separate window
 function tmw {
