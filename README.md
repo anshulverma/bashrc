@@ -35,7 +35,3 @@ are implemented in this configuration:
   system load etc.
 
 - Shorten the path in prompt if it gets too long
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/anshulverma/bashrc/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
