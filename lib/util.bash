@@ -159,7 +159,7 @@ function shorten_path() {
 
 # check if you are running in a docker container
 function running_in_docker() {
-  $(test -f '/proc/self/cgroup') && $(awk -F/ '$2 == "docker"' /proc/self/cgroup | read)
+  $(test -f '/.dockerinit')
 }
 
 # check if you are running in a vagrant box
