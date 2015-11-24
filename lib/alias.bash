@@ -96,6 +96,12 @@ alias df='df -kTh'
 
 # git
 alias gca='git commit -am'
+function gcap {
+  git commit -am $1
+  if ask "push to git?"; then
+    git push
+  fi
+}
 
 ### tmux
 
