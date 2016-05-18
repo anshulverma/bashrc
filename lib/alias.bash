@@ -10,6 +10,7 @@ function httph {
 }
 
 alias e='emacsclient'
+alias emacst='emacs --no-window-system'
 
 alias j6='export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)'
 alias j7='export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)'
