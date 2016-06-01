@@ -116,12 +116,6 @@ function tmw {
 
 ###
 
-### utils
-
-alias htop="sudo htop"
-
-###
-
 ### chrome
 
 function chrome {
