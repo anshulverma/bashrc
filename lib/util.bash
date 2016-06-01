@@ -166,3 +166,79 @@ function running_in_docker() {
 function running_in_vagrant() {
   [ "$USER" == "vagrant" ] || [ "$ENV_TYPE" == "vagrant" ]
 }
+
+# start a process and restart it if it crashes
+# if the exit code was `0` then it means the process exited gracefully
+# in such a case, we assume that the user wanted to shut it down and do nothing
+RUN_FOREVER_BASE=$HOME"/.run-forever"
+function run-forever() {
+
+  args=()
+  background_mode=false
+  while [ ${#} -gt 0 ]
+  do
+    OPTERR=0
+    OPTIND=1;
+    getopts "dh" opt
+
+    case "$opt" in
+      d) background_mode=true ;;
+      h) echo """Usage:
+run-forever [-d] <command>
+
+-d : Run the command process as a daemon
+-h : Print this help"""
+         return;;
+      \?) args+=("$1") ;;
+      *) echo "Invalid option: -$opt" >&2 ;;
+    esac
+    shift
+    [ "" != "$OPTARG" ] && shift
+  done
+  [ ${#args[@]} -gt 0 ] && set "" "${args[@]}" && shift
+
+  command=$@
+
+  safe_filename=$(python -c "print ''.join([ c if c.isalnum() else '_' for c in '$command' ])")
+  log_file="$RUN_FOREVER_BASE/${safe_filename}"
+
+  if [ ! -d "$RUN_FOREVER_BASE" ]
+  then
+    mkdir -p $RUN_FOREVER_BASE
+  fi
+
+  if $background_mode
+  then
+    run-forever-internal "$command" "$log_file" >> "${log_file}.out" 2>> "${log_file}.err" &
+
+    echo "started program '$command' in the background"
+    echo "you can find the log files for this program at ${log_file}.{out,log}"
+  else
+    run-forever-internal "$command" "$log_file"
+  fi
+}
+
+# this is for internal use
+# used to start the run-forever process
+function run-forever-internal() {
+  command=$1
+  log_file=$2
+
+  run_id=$(awk -v min=5 -v max=999999 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')
+
+  echo "$(date) | ${run_id} | program '$command' starting" >> "$log_file.log"
+
+  until eval "$command"; do
+    exit_code=$?
+    if [ "$exit_code" -eq "1" ] # currently a hack to handle CTRL-C
+    then
+      echo "$(date) | ${run_id} | program '$command' terminated forcefully" >> "$log_file.log"
+      return
+    fi
+
+    echo "$(date) | ${run_id} | program '$command' crashed with code $exit_code. Respawning..." >> "$log_file.log"
+    sleep 1
+  done
+
+  echo "$(date) | ${run_id} | program '$command' exited gracefully" >> "$log_file.log"
+}
