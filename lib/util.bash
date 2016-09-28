@@ -242,3 +242,17 @@ function run-forever-internal() {
 
   echo "$(date) | ${run_id} | program '$command' exited gracefully" >> "$log_file.log"
 }
+
+# check if a brew package is installed
+# Usage:
+# if brew_installed "package-name"; then
+#   do something;
+# fi
+function brew_installed() {
+  pkg=$1
+  if [ -z "$(brew ls --versions $pkg)" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
