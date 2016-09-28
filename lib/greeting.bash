@@ -9,8 +9,8 @@ function bashrc_version() {
 }
 
 if [ "$QUIET_MODE" != "true" ]; then
-cat <<EOF
-Welcome to host ${HOSTNAME}
+  bash_echo -e "Welome to ${BYellow}${HOSTNAME}${ResetColor}"
+  cat <<EOF
 Current time is $(date)
 
 For more information about this configuration,
