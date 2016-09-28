@@ -6,7 +6,7 @@ if [ -z "$(which java)" ]; then
 fi
 
 if [ -x "/usr/libexec/java_home" ]; then
-  export JAVA_HOME=${JAVA_HOME:-"$(/usr/libexec/java_home -v 1.7)"}
+  export JAVA_HOME=${JAVA_HOME:-"$(/usr/libexec/java_home -v 1.8)"}
 fi
 
 export GROOVY_HOME=${GROOVY_HOME:-"/usr/local/opt/groovy/libexec"}
