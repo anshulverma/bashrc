@@ -14,7 +14,7 @@ source $LIB_DIR/init.bash
 # call init before anything to get ready for setup
 source $LIB_DIR/util.bash
 
-overallStartTime=$(($(date +%s%N)/1000000))
+overallStartTime=$(ruby -e 'puts (Time.now.to_f * 1000).to_i')
 
 # set constants
 source $LIB_DIR/constants.bash

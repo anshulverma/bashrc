@@ -2,7 +2,7 @@
 
 # get current time in milliseconds
 function current_time() {
-  echo $(date +%s%N | cut -b1-13)
+  ruby -e 'puts (Time.now.to_f * 1000).to_i'
 }
 
 # load a script and measure time taken
