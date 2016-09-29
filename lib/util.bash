@@ -249,7 +249,7 @@ function run-forever-internal() {
 #   do something;
 # fi
 function brew_installed() {
-  if [ -d "${CELLAR_PATH}/emacs" ]; then
+  if [ -d "${CELLAR_PATH}/$1" ]; then
     return 0
   else
     return 1
