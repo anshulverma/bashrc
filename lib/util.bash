@@ -249,8 +249,17 @@ function run-forever-internal() {
 #   do something;
 # fi
 function brew_installed() {
-  pkg=$1
-  if [ -z "$(brew ls --versions $pkg)" ]; then
+  __brew_installed "" "$1"
+}
+
+function brew_installed_cask() {
+  __brew_installed "cask" "$1"
+}
+
+function __brew_installed() {
+  cask=$1
+  pkg=$2
+  if [ -z "$(brew $cask ls --versions $pkg)" ]; then
     return 1
   else
     return 0
