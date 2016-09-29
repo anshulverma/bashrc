@@ -2,7 +2,15 @@
 
 function bashrc_version() {
   if test -d $BASH_RC_BASEDIR/.git; then
-    git --git-dir=$BASH_RC_BASEDIR/.git --work-tree=$BASH_RC_BASEDIR describe
+    pushd $BASH_RC_BASEDIR > /dev/null
+    tag="$(git describe --tags --abbrev=0)"
+    num_patches="$(git rev-list ${tag}..HEAD --count)"
+    dirty=""
+    if [ ! -z "$(git status -s)" ]; then
+      dirty="*"
+    fi
+    echo "${tag}.${num_patches}${dirty}"
+    popd > /dev/null
   elif test -n "$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')"; then
     echo "v"$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')
   fi
