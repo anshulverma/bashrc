@@ -249,19 +249,9 @@ function run-forever-internal() {
 #   do something;
 # fi
 function brew_installed() {
-  __brew_installed "" "$1"
-}
-
-function brew_installed_cask() {
-  __brew_installed "cask" "$1"
-}
-
-function __brew_installed() {
-  cask=$1
-  pkg=$2
-  if [ -z "$(brew $cask ls --versions $pkg)" ]; then
-    return 1
-  else
+  if [ -d "${CELLAR_PATH}/emacs" ]; then
     return 0
+  else
+    return 1
   fi
 }
