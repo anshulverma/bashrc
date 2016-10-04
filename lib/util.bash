@@ -255,3 +255,26 @@ function brew_installed() {
     return 1
   fi
 }
+
+# check if bash rc config is dirty (i.e. not in sync with git)
+function bashrc_dirty() {
+  if [ ! -z "$(git --git-dir=$BASH_RC_BASEDIR/.git --work-tree=$BASH_RC_BASEDIR status -s)" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# get version for this bashrc config as per latest git tag
+function bashrc_version() {
+  if test -d $BASH_RC_BASEDIR/.git; then
+    pushd $BASH_RC_BASEDIR > /dev/null
+    tag="$(git describe --tags --abbrev=0)"
+    num_patches="$(git rev-list ${tag}..HEAD --count)"
+    dirty=$(bashrc_dirty && echo "*" || echo "")
+    echo "${tag}.${num_patches}${dirty}"
+    popd > /dev/null
+  elif test -n "$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')"; then
+    echo "v"$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')
+  fi
+}
