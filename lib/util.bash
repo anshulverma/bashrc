@@ -2,35 +2,15 @@
 
 # get current time in milliseconds
 function current_time() {
-  ruby -e 'puts (Time.now.to_f * 1000).to_i'
+  date +%s.%N
 }
 
-# load a script and measure time taken
-function load_script() {
-  startTime=$(current_time)
-
-  # execute script
-  file=$1
-  EXIT_CODE=0
-  source $file
-
-  # find out the status code from exit code
-  case $EXIT_CODE in
-    0) code="DONE"
-       color=$Green
-       ;;
-    1) code="SKIP"
-       color=$White
-       ;;
-    *) code="ERR "
-       color=$Red
-  esac
-
-  # print status
-  appName=$(cprint "`basename $file | sed 's/.bash$//'`" $BWhite)
-  status=$(cprint $code $color)
-  timeTaken=$(expr $(current_time) - $startTime)
-  bash_echo -e "....................\r$appName\r\033[20C$status [${timeTaken} msec]"
+# get ellapsed time from the first argument
+function elapsed_time() {
+  start_time=$1
+  echo "$(current_time) - $start_time" \
+    | bc \
+    | awk -F"." '{ print $1"."substr($2,1,3) }'
 }
 
 # ask user for y/n input
@@ -53,6 +33,12 @@ function ask() {
 function bash_echo() {
   if [ "$QUIET_MODE" != "true" ]; then
     echo $1 $2
+  fi
+}
+
+function bash_printf() {
+  if [ "$QUIET_MODE" != "true" ]; then
+    printf "$@"
   fi
 }
 
@@ -246,7 +232,7 @@ function run-forever-internal() {
 # check if a brew package is installed
 # Usage:
 # if brew_installed "package-name"; then
-#   do something;
+#   do something
 # fi
 function brew_installed() {
   if [ -d "${CELLAR_PATH}/$1" ]; then
@@ -257,6 +243,10 @@ function brew_installed() {
 }
 
 # check if bash rc config is dirty (i.e. not in sync with git)
+# Usage:
+# if bashrc_dirty; then
+#   do something
+# fi
 function bashrc_dirty() {
   if [ ! -z "$(git --git-dir=$BASH_RC_BASEDIR/.git --work-tree=$BASH_RC_BASEDIR status -s)" ]; then
     return 0
@@ -265,16 +255,20 @@ function bashrc_dirty() {
   fi
 }
 
-# get version for this bashrc config as per latest git tag
+# get version for this bashrc config as per latest git tag.
+# Last character determines the status of bashrc repo:
+#   d -- git repository is not in sync with remote (dirty)
+#   c -- git repository is in sync with remote (clean)
+#   m -- manually installed by downloading a tarball (manual)
 function bashrc_version() {
   if test -d $BASH_RC_BASEDIR/.git; then
     pushd $BASH_RC_BASEDIR > /dev/null
     tag="$(git describe --tags --abbrev=0)"
     num_patches="$(git rev-list ${tag}..HEAD --count)"
-    dirty=$(bashrc_dirty && echo "*" || echo "")
+    dirty=$(bashrc_dirty && echo "d" || echo "c")
     echo "${tag}.${num_patches}${dirty}"
     popd > /dev/null
   elif test -n "$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')"; then
-    echo "v"$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')
+    echo "v"$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')"m"
   fi
 }

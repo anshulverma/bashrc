@@ -60,7 +60,7 @@ function prompt_finalize() {
     timeTaken=$(expr $(current_time) - $startTime)
     DEBUG_INFO=$DEBUG_INFO"\ntotal_time: "$timeTaken
 
-    echo $DEBUG_INFO"\n------------------\n # "
+    echo $DEBUG_INFO"\n------------------\n $ "
   fi
 }
 
