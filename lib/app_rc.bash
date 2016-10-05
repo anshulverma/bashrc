@@ -44,7 +44,7 @@ case \$EXIT_CODE in
      color=\$Red
 esac
 
-if [ "$QUIET_MODE" != "true" ]; then
+if [ "\$QUIET_MODE" != "true" ]; then
   printf "$BWhite%s$ResetColor%s\$color%s$ResetColor [%1.3fs]\n" $app_name "\${dotted_line:${#app_name}}" \$code \$time_taken
 fi
 
