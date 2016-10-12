@@ -6,3 +6,6 @@ fi
 
 # source iterm2 shell integration if available
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+# enable easy switching between directories
+source `brew --prefix`/etc/profile.d/z.sh
