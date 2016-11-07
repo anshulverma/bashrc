@@ -10,4 +10,4 @@ if [ -x "/usr/libexec/java_home" ]; then
 fi
 
 export GROOVY_HOME=${GROOVY_HOME:-"/usr/local/opt/groovy/libexec"}
-export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=2048m"
+export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=2048m -XX:ReservedCodeCacheSize=512m"
