@@ -11,3 +11,4 @@ fi
 
 export GROOVY_HOME=${GROOVY_HOME:-"/usr/local/opt/groovy/libexec"}
 export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=2048m -XX:ReservedCodeCacheSize=512m"
+export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512M"
