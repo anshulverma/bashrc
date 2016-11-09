@@ -272,3 +272,33 @@ function bashrc_version() {
     echo "v"$(basename $BASH_RC_BASEDIR | sed 's/bashrc-//')"m"
   fi
 }
+
+# get value of a variable by name
+function value-by-name() {
+  echo ${!1}
+}
+
+# check if a custom rc was configured
+# example use:
+# if __installed "brew"; then
+#   do_something
+# fi
+function __installed() {
+  var="__$(echo $1 | tr '[:lower:]' '[:upper:]')_INSTALLED"
+  flag=$(value-by-name $var)
+  if [ $flag == 1 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# negates the __installed function above
+# similar usage
+function __not_installed() {
+  if __installed $1; then
+    return 1
+  else
+    return 0
+  fi
+}

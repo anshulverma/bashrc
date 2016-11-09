@@ -1,13 +1,17 @@
 #!/bin/bash
 
-if [ -z "$(which hdfs)" ] || [ $PLATFORM != 'OSX' ]; then
+if __not_installed brew || [ -z "$(which hdfs)" ] || [ $PLATFORM != 'OSX' ]; then
   EXIT_CODE=1
   return
 fi
 
-# Hadoop settings
-export HADOOP_HOME=${HADOOP_HOME:-"/usr/local/Cellar/hadoop/2.4.1"}
+export HADOOP_VERSION="$(brew-version hadoop)"
+export PIG_VERSION="$(brew-version pig)"
+export HIVE_VERSION="$(brew-version hive)"
+
+export HADOOP_HOME=${HADOOP_HOME:-"/usr/local/Cellar/hadoop/${HADOOP_VERSION}"}
 export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-"$HADOOP_HOME/libexec/etc/hadoop"}
 
-# PIG
-export PIG_HOME=${PIG_HOME:-"/usr/local/Cellar/pig/0.12.0"}
+export PIG_HOME=${PIG_HOME:-"/usr/local/Cellar/pig/${PIG_VERSION}"}
+
+export HIVE_HOME=${HIVE_HOME:-"/usr/local/Cellar/hive/${HIVE_VERSION}"}

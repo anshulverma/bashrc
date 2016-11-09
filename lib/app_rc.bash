@@ -32,10 +32,14 @@ start_time="\$(current_time)"
 __load_${app_file_name}
 time_taken="\$(elapsed_time \$start_time)"
 
+# set a flag which indicates if the app was installed or not
+export __$(echo $app_name | tr '[:lower:]' '[:upper:]')_INSTALLED=0
+
 # find out the status code from exit code
 case \$EXIT_CODE in
   0) code="DONE"
      color=\$Green
+     export __$(echo $app_name | tr '[:lower:]' '[:upper:]')_INSTALLED=1
      ;;
   1) code="SKIP"
      color=\$White
