@@ -6,7 +6,10 @@ if [ $PLATFORM != 'OSX' ]; then
 fi
 
 # Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+if [ -f "$HOME/.rvm/scripts/rvm" ]; then
+  source "$HOME/.rvm/scripts/rvm" # Load RVM as a function
+  export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+fi
 
 export CELLAR_PATH="/usr/local/Cellar"
 
