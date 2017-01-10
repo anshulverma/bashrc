@@ -127,3 +127,11 @@ function chrome {
 }
 
 ###
+
+### OSX specific
+
+if [ $PLATFORM == 'OSX' ]; then
+  alias sleep-computer="osascript -e 'tell application \"Finder\" to sleep'"
+fi
+
+###
