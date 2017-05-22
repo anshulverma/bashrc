@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$(which hg)" ]; then
+if is-not-installed hg; then
   EXIT_CODE=1
   return
 fi

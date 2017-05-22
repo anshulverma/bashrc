@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$(which node)" ]; then
+if is-not-installed node; then
   EXIT_CODE=1
   return
 fi
@@ -13,7 +13,7 @@ case $PLATFORM in
 esac
 export NODE_PATH
 
-if [ ! -z "$(which grunt)" ]; then
+if is-installed grunt; then
   # Grunt autocomplete
   eval "$(grunt --completion=bash)"
 fi

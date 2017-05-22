@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$(which nginx)" ] && [ ! -d "/etc/nginx" ]; then
+if is-not-installed nginx && [ ! -d "/etc/nginx" ]; then
   EXIT_CODE=1
   return
 fi

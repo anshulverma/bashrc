@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if __not_installed brew || [ -z "$(which hdfs)" ] || [ $PLATFORM != 'OSX' ]; then
+if __not_installed brew || is-not-installed hdfs || [ $PLATFORM != 'OSX' ]; then
   EXIT_CODE=1
   return
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -z "$(which pdflatex)" ] && [ $PLATFORM == 'OSX' ]
+if is-installed pdflatex && [ $PLATFORM == 'OSX' ]
 then
   export PATH=$PATH:/Library/TeX/texbin
 else

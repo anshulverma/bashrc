@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -z "$(which git)" ] && $(brew_installed "bash-completion") && [ $PLATFORM == 'OSX' ]; then
+if is-installed git && $(brew_installed "bash-completion") && [ $PLATFORM == 'OSX' ]; then
   git_version=`git --version | sed 's/[a-z ]*//g'`
 
   # git auto complete

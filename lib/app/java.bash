@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$(which java)" ]; then
+if is-not-installed java; then
   EXIT_CODE=1
   return
 fi

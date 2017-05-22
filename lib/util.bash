@@ -302,3 +302,21 @@ function __not_installed() {
     return 0
   fi
 }
+
+# check if a command does not exists
+# Usage:
+# if is-not-installed git; then
+#   do something
+# fi
+function is-not-installed() {
+  ! is-installed $1
+}
+
+# check if a command exists
+# Usage:
+# if is-installed git; then
+#   do something
+# fi
+function is-installed() {
+  hash $1 2>/dev/null
+}
