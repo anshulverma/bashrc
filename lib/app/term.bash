@@ -7,7 +7,8 @@ fi
 # source iterm2 shell integration if available
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-if is-installed z; then
+Z_SH=`brew --prefix`/etc/profile.d/z.sh
+if [ -f "$Z_SH" ] ; then
   # enable easy switching between directories
-  source `brew --prefix`/etc/profile.d/z.sh
+  source $Z_SH
 fi
