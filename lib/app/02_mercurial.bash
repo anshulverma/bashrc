@@ -10,4 +10,8 @@ if [ $PLATFORM == 'OSX' ]; then
 
   # git auto complete
   source $CELLAR_PATH/mercurial/${hg_version}/etc/bash_completion.d/hg-completion.bash
+
+  #   /opt/facebook/hg/share
+  #   source /path/to/scm-prompt
+  #   export PS1="\$(_scm_prompt " (%s)")\u@\h:\W\$ "
 fi
