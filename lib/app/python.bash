@@ -14,3 +14,6 @@ _pip_completion()
 }
 complete -o default -F _pip_completion pip
 # pip bash completion end
+
+# setup pyenv in path
+export PATH="$(pyenv root)/shims:$PATH"

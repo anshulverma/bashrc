@@ -35,3 +35,11 @@ are implemented in this configuration:
   system load etc.
 
 - Shorten the path in prompt if it gets too long
+
+## Manual setup
+
+- Allow python to automatically determine python version to use
+
+``` shell
+git clone git://github.com/concordusapps/pyenv-implict.git ~/.pyenv/plugins/pyenv-implicit
+```
