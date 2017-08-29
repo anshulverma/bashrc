@@ -2,7 +2,7 @@
 
 # get current time in milliseconds
 function current_time() {
-  date +%s.%N
+  gdate +%s.%N # use gnu date
 }
 
 # get ellapsed time from the first argument

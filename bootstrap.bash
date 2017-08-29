@@ -14,7 +14,7 @@ source $LIB_DIR/init.bash
 # call init before anything to get ready for setup
 source $LIB_DIR/util.bash
 
-overallStartTime=$(date +%s.%N)
+overallStartTime=$(gdate +%s.%N)
 
 # set constants
 source $LIB_DIR/constants.bash
