@@ -27,8 +27,18 @@ if [ ! -z "$(which git)" ] || [ ! -z "$(which hg)" ]; then
   scm_installed=1
 fi
 
+function disabled_by_git_config() {
+  config=$(git config --get prompt.disable 2>/dev/null)
+  [ "$config" == "1" ]
+}
+
+function disabled_by_hg_config() {
+  config=$(hg config prompt.disable 2>/dev/null)
+  [ "$config" == "1" ]
+}
+
 disable_scm=
-if [ ! $scm_installed ] || running_in_docker || running_in_vagrant; then
+if [ ! $scm_installed ] || running_in_docker || running_in_vagrant || disabled_by_git_config || disabled_by_hg_config; then
   disable_scm=1
 fi
 
@@ -64,16 +74,11 @@ function prompt_finalize() {
   fi
 }
 
-function disabled_by_git_config() {
-  config=$(git config --get prompt.disable 2>/dev/null)
-  [ "$config" == "1" ]
-}
-
 function load_scm_info() {
   scm_type=
   scm_status=
 
-  if [ $disable_scm ] || disabled_by_git_config; then
+  if [ $disable_scm ]; then
     return
   fi
 
@@ -114,7 +119,7 @@ function print_scm_branch() {
   if [ "${scm_type}" == "git" ]; then
     branch_name=$(__git_ps1 "(%s)")
   elif [ "${scm_type}" == "hg" ]; then
-    branch_name="($(hg branch))"
+    branch_name="$(_scm_prompt)" # make sure scm_prompt is sourced correctly (refer to mercurial.bash for details)
   fi
 
   if [ "${branch_name}" != "" ]; then
