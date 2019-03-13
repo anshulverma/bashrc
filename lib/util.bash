@@ -275,7 +275,7 @@ function bashrc_version() {
 
 # get value of a variable by name
 function value-by-name() {
-  echo ${!1}
+  echo "${!1}"
 }
 
 # check if a custom rc was configured
@@ -286,7 +286,7 @@ function value-by-name() {
 function __installed() {
   var="__$(echo $1 | tr '[:lower:]' '[:upper:]')_INSTALLED"
   flag=$(value-by-name $var)
-  if [ $flag == 1 ]; then
+  if [ "$flag" = "1" ]; then
     return 0
   else
     return 1
