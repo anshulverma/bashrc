@@ -8,3 +8,9 @@ else
   EXIT_CODE=1
   return
 fi
+
+# make sure mural (a fast, fuzzy typeahead) binary is in PATH
+MURAL_PATH="$HOME/.mural"
+if [ -d "$MURAL_PATH" ]; then
+  export PATH=$PATH:$MURAL_PATH
+fi
