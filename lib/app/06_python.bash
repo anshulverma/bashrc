@@ -20,4 +20,3 @@ export PATH="$(pyenv root)/shims:$PATH"
 
 # set up python startup script
 export PYTHONSTARTUP=$BIN_DIR/scripts/pythonstartup.py
-echo $PYTHONSTARTUP
