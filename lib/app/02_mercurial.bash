@@ -15,3 +15,6 @@ if [ $PLATFORM == 'OSX' ]; then
   #   source /path/to/scm-prompt
   #   export PS1="\$(_scm_prompt " (%s)")\u@\h:\W\$ "
 fi
+
+# useful mercurial aliases
+alias hg-bisect-log='hg log -r "bisect(good) or bisect(bad)" --template "{node|short} {bisect}\\n"'
